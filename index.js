@@ -34,7 +34,30 @@ const agregarContacto = (
   listaContactos.push(contacto);
 };
 
-// 3. Crea una función para borrar un contacto existente de la lista
+// 3. Crea una función para actualizar un contacto de la lista
+const actualizarContacto = (
+  id,
+  nombresUpdate,
+  apellidosUpdate,
+  telefonoUpdate,
+  ciudadUpdate,
+  direccionUpdate
+) => {
+  let index = listaContactos.findIndex((c) => c.id === id);
+  const {
+    nombres,
+    apellidos,
+    telefono,
+    ubicacion: { ciudad, direccion },
+  } = listaContactos[index];
+  listaContactos[index].nombres = nombresUpdate || nombres;
+  listaContactos[index].apellidos = apellidosUpdate || apellidos;
+  listaContactos[index].telefono = telefonoUpdate || telefono;
+  listaContactos[index].ubicacion.ciudad = ciudadUpdate || ciudad;
+  listaContactos[index].ubicacion.direccion = direccionUpdate || direccion;
+};
+
+// 4. Crea una función para borrar un contacto existente de la lista
 const eliminarContacto = (id) => {
   if (!isNaN(id)) {
     let index = listaContactos.findIndex((c) => c.id === id);
@@ -43,7 +66,7 @@ const eliminarContacto = (id) => {
   } else console.log(`ID "${id}" del contacto a eliminar no es existe`);
 };
 
-// 4. Crea una función para imprimir en consola los contactos presentes en la lista
+// 5. Crea una función para imprimir en consola los contactos presentes en la lista
 const listarContactos = () => {
   for (let i = 0; i < listaContactos.length; i++) {
     const {
@@ -66,6 +89,8 @@ listarContactos();
 agregarContacto("Juan", "Perez", 32566993, "San Luis", "Dg. 5 cra. 8-12");
 listarContactos();
 agregarContacto("Daniel", "Jimenez");
+listarContactos();
+actualizarContacto(2, "", "", 88888888, "Barranquilla", "");
 listarContactos();
 eliminarContacto(0);
 // eliminarContacto(-1);
